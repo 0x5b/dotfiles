@@ -1,0 +1,32 @@
+[user]
+    name = Anton Vazhnetsov 
+    email = AVazhnetsov@croc.ru
+[core]
+    editor = "vim"
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+ excludesfile = /home/avazhnetsov/.gitexcludes
+[alias]
+    br = branch
+    ci = commit -a
+    co = checkout
+    gr = grep -n --color --extended-regexp
+    me = merge --no-commit
+    mt = mergetool --no-prompt
+    pa = push --all
+    pt = push --tags
+    rb = rebase --committer-date-is-author-date
+    st = status
+    up = remote update
+    upd = remote update --prune
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[merge]
+    tool = meld
+[mergetool "meld"]
+    cmd = "meld $LOCAL $MERGED $REMOTE"
+[push]
+    default = matching
+[color]
+    ui = true
