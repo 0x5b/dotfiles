@@ -1,59 +1,3 @@
-"" ===> General
-"
-"set number
-"filetype plugin on
-"filetype indent on
-"
-"set autoread
-"
-"" ===> User Interface
-"
-"" Ignore compiled files
-"set wildignore=*.o,*~,*.pyc
-"
-"" Ignore case when search
-"set ignorecase
-"
-"
-"" ===> Colors & Fonts
-"
-"" Enable syntax highlight
-"syntax enable
-"
-"" Default encoding
-"set encoding=utf8
-"
-"
-"" ===> Text/Tabs/Indent
-"
-"" Enable Smarttabs
-"set smarttab
-"set copyindent
-"set noexpandtab
-"set preserveindent
-"set softtabstop=0
-"
-"" 1 tab == 4 spaces
-"set tabstop=4
-"set shiftwidth=4
-"
-"" Auto indent
-"set ai
-"set si
-"
-"" Enable text paste with formatting save
-"set paste
-"
-"" ===> Helpers
-"
-"" Show trailing whitespace:
-"highlight ExtraWhitespace ctermbg=red guibg=darkred
-"match ExtraWhitespace /\s\+$/
-"set noexpandtab
-"
-" This config bases on github.com/rmk135/vimrc
-
-" Be iMproved
 set nocompatible
 
 "=====================================================
@@ -66,20 +10,23 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'                  " let Vundle manage Vundle, required
 
 "-------------------=== Code/Project navigation ===-------------
-Plugin 'scrooloose/nerdtree'           " Project and file navigation
-"Plugin 'majutsushi/tagbar'           " Project and file navigation
-"Plugin 'kien/ctrlp.vim'                     " Fast transitions on project files
-Plugin 'ctrlpvim/ctrlp.vim'                     " Fast transitions on project files
-Plugin 'scrooloose/nerdcommenter'            " Intensely orgasmic commenting
+Plugin 'scrooloose/nerdtree'                " Project and file navigation
+"Plugin 'majutsushi/tagbar'                 " Project and file navigation
+"Plugin 'kien/ctrlp.vim'                    " Fast transitions on project files
+Plugin 'ctrlpvim/ctrlp.vim'                 " Fast transitions on project files
+Plugin 'scrooloose/nerdcommenter'           " Intensely orgasmic commenting
 
 "-------------------=== Other ===-------------------------------
-Plugin 'vim-airline/vim-airline'             " Lean & mean status/tabline for vim
-Plugin 'vim-airline/vim-airline-themes'             " Lean & mean status/tabline for vim
-"Plugin 'powerline/fonts'                 " Powerline fonts plugin
-"Plugin 'fisadev/FixedTaskList.vim'       " Pending tasks list
-Plugin 'rosenfeld/conque-term'           " Consoles as buffers
+Plugin 'vim-airline/vim-airline'            " Lean & mean status/tabline for vim
+Plugin 'vim-airline/vim-airline-themes'     " Lean & mean status/tabline for vim
+"Plugin 'powerline/fonts'                   " Powerline fonts plugin
+"Plugin 'fisadev/FixedTaskList.vim'         " Pending tasks list
+Plugin 'rosenfeld/conque-term'              " Consoles as buffers
 Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
 Plugin 'Chiel92/vim-autoformat'
+"Plugin 'tpope/vim-dotenv'
+Plugin 'evgsolntsev/vim-dotenv'
+Plugin 'tpope/vim-fugitive'                 " git blame
 
 "-------------------=== Snippets support ===--------------------
 "Plugin 'garbas/vim-snipmate'                " Snippets manager
@@ -92,15 +39,14 @@ Plugin 'Chiel92/vim-autoformat'
 "Plugin 'tpope/vim-commentary'               " Comment stuff out
 "Plugin 'mitsuhiko/vim-sparkup'              " Sparkup(XML/jinja/htlm-django/etc.) support
 "Plugin 'Rykka/riv.vim'                      " ReStructuredText plugin
+Plugin 'vim-scripts/ruscmd'                  " Normal mode on russian
 
 "-------------------=== Python  ===-----------------------------
-Plugin 'klen/python-mode'                   " Python mode (docs, refactor, lints...)
-"Plugin 'davidhalter/jedi-vim'               " Jedi-vim autocomplete plugin
-"Plugin 'Valoric/YouCompleteMe'
-Plugin 'mitsuhiko/vim-jinja'                " Jinja support for vim
-Plugin 'mitsuhiko/vim-python-combined'      " Combined Python 2/3 for Vim
-Plugin 'hynek/vim-python-pep8-indent'       " PEP8 indent
-Plugin 'jmcantrell/vim-virtualenv'          " Virtualenv support in VIM
+Plugin 'python-mode/python-mode'             " Python mode (docs, refactor, lints...)
+Plugin 'davidhalter/jedi-vim'               " Jedi-vim autocomplete plugin
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'mitsuhiko/vim-jinja'                 " Jinja support for vim
+Plugin 'mitsuhiko/vim-python-combined'       " Combined Python 2/3 for Vim
 
 call vundle#end()                           " required
 filetype on
@@ -126,8 +72,8 @@ set listchars=tab:<-
 set list
 
 set t_Co=256                                " set 256 colors
-"colorscheme wombat256                       " set color scheme
-colorscheme dracula                           " set color scheme
+colorscheme wombat256                       " set color scheme
+"colorscheme dracula                           " set color scheme
 
 if g:colors_name == "wombat256"
     hi String gui=none
@@ -173,6 +119,7 @@ nnoremap <silent> + :call RunPython()<CR>
 nnoremap <silent> <C-l> :call ShowList()<CR>
 inoremap <C-U> <C-G>u<C-U>
 nnoremap <F3> :Autoformat<CR>
+nnoremap <C-b> :Gblame<CR>
 set autochdir
 
 let g:Orien = 1
@@ -243,42 +190,6 @@ let g:riv_disable_folding=1
 " omnicomplete
 set completeopt-=preview                    " remove omnicompletion dropdown
 
-" rope
-let g:pymode_rope=0
-let g:pymode_rope_completion=0
-let g:pymode_rope_complete_on_dot=0
-let g:pymode_rope_auto_project=0
-let g:pymode_rope_enable_autoimport=0
-let g:pymode_rope_autoimport_generate=0
-let g:pymode_rope_guess_project=0
-
-" documentation
-let g:pymode_doc=0
-let g:pymode_doc_key='K'
-
-" lints
-let g:pymode_lint=0
-let g:pymode_lint_checker='flake8,pep257'
-let g:pymode_lint_write=0                   " run lints after file save
-let g:pymode_lint_ignore=''                 " ignore lint errors
-
-" virtualenv
-let g:pymode_virtualenv=1
-
-" breakpoints
-let g:pymode_breakpoint=1
-let g:pymode_breakpoint_key='<leader>b'
-
-" syntax highlight
-let python_highlight_all=1
-let python_highlight_exceptions=1
-let python_highlight_builtins=1
-let python_slow_sync=1
-let g:pymode_syntax=1
-let g:pymode_syntax_all=1
-let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-let g:pymode_syntax_space_errors=g:pymode_syntax_all
-
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
     autocmd!
@@ -296,27 +207,41 @@ set guioptions-=r
 set guioptions+=c
 set linespace=0
 
+" jedi-vim
+let g:jedi#popup_select_first=0             " Disable choose first option on autocomplete
+let g:jedi#popup_on_dot=1                   " Enable autocomplete on dot
+let g:jedi#goto_assignments_command = "<C-g>"
+let g:jedi#goto_command = "<C-d>"
+let g:jedi#show_call_signatures = "1"
+
+set noexpandtab
+
+" pymode
+let g:pymode_run = 1
+let g:pymode_run_bind = '<C-r>'
+
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint']
+let g:pymode_lint_ignore = ['W191', 'E128', 'E501', 'E124', 'C901', 'E131', 'E201', 'E202', 'E722']
+let g:pymode_lint_unmodified = 1
+let g:pymode_lint_message = 1
+
+let g:pymode_virtualenv=1
+
+let g:pymode_rope = 0
+
+" syntax highlight
+let g:pymode_syntax=1
+let g:pymode_syntax_all=1
+let g:pymode_syntax_indent_errors=g:pymode_syntax_all
+let g:pymode_syntax_space_errors=g:pymode_syntax_all
+
+" documentation
+let g:pymode_doc=1
+let g:pymode_doc_key='K'
+
 " code folding
 let g:pymode_folding=0
 
-" code running
-let g:pymode_run=0
-
-" jedi-vim
-let g:jedi#popup_select_first=1             " Disable choose first option on autocomplete
-let g:jedi#show_call_signatures=0           " Show call signatures
-let g:jedi#popup_on_dot=1                   " Enable autocomplete on dot
-
-" syntastic
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_enable_signs=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_aggregate_errors=1
-let g:syntastic_error_symbol='X'
-let g:syntastic_style_error_symbol='X'
-let g:syntastic_warning_symbol='x'
-let g:syntastic_style_warning_symbol='x'
-let g:syntastic_python_checkers = ['flake8', 'pep257', 'python']
-
-set noexpandtab
+let dotenv_autoload = 1

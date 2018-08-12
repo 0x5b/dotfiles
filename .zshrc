@@ -91,5 +91,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+export PATH="~/.local/bin:$PATH"
+
 export PYTHONSTARTUP=$HOME/.pythonstartup.py
 alias ds="dnf search"
